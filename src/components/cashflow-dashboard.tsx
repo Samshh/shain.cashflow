@@ -213,21 +213,23 @@ export function CashflowDashboard() {
                     color: "hsl(var(--primary))",
                   },
                 }}
-                className="h-75 sm:h-90"
+                className="h-auto"
               >
-                <ResponsiveContainer width="100%" height="100%">
-                  <ReBarChart data={incomeExpenseData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <ChartTooltip content={<ChartTooltipContent />} />
-                    <Bar dataKey="value" radius={[8, 8, 0, 0]}>
-                      {incomeExpenseData.map((entry) => (
-                        <Cell key={entry.name} fill={entry.fill} />
-                      ))}
-                    </Bar>
-                  </ReBarChart>
-                </ResponsiveContainer>
+                <div className="w-full" style={{ minHeight: 320 }}>
+                  <ResponsiveContainer width="100%" aspect={2}>
+                    <ReBarChart data={incomeExpenseData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <ChartTooltip content={<ChartTooltipContent />} />
+                      <Bar dataKey="value" radius={[8, 8, 0, 0]}>
+                        {incomeExpenseData.map((entry) => (
+                          <Cell key={entry.name} fill={entry.fill} />
+                        ))}
+                      </Bar>
+                    </ReBarChart>
+                  </ResponsiveContainer>
+                </div>
               </ChartContainer>
             </CardContent>
           </Card>
@@ -243,33 +245,35 @@ export function CashflowDashboard() {
                     label: "Amount",
                   },
                 }}
-                className="h-75 sm:h-90"
+                className="h-auto"
               >
-                <ResponsiveContainer width="100%" height="100%">
-                  <RePieChart>
-                    <ChartTooltip content={<ChartTooltipContent />} />
-                    <Pie
-                      data={categoryBreakdown}
-                      dataKey="value"
-                      nameKey="name"
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={80}
-                      label={({ name, value }) =>
-                        `${name}: $${value.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-                      }
-                    >
-                      {categoryBreakdown.map((entry) => (
-                        <Cell
-                          key={entry.name}
-                          fill={
-                            entry.name === "income" ? INCOME_COLOR : EXPENSE_COLOR
-                          }
-                        />
-                      ))}
-                    </Pie>
-                  </RePieChart>
-                </ResponsiveContainer>
+                <div className="w-full" style={{ minHeight: 320 }}>
+                  <ResponsiveContainer width="100%" aspect={1}>
+                    <RePieChart>
+                      <ChartTooltip content={<ChartTooltipContent />} />
+                      <Pie
+                        data={categoryBreakdown}
+                        dataKey="value"
+                        nameKey="name"
+                        cx="50%"
+                        cy="50%"
+                        outerRadius={80}
+                        label={({ name, value }) =>
+                          `${name}: $${value.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                        }
+                      >
+                        {categoryBreakdown.map((entry) => (
+                          <Cell
+                            key={entry.name}
+                            fill={
+                              entry.name === "income" ? INCOME_COLOR : EXPENSE_COLOR
+                            }
+                          />
+                        ))}
+                      </Pie>
+                    </RePieChart>
+                  </ResponsiveContainer>
+                </div>
               </ChartContainer>
             </CardContent>
           </Card>

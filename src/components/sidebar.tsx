@@ -21,6 +21,7 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { supabase } from "@/lib/supabase";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Sidebar() {
   const navigate = useNavigate();
@@ -157,7 +158,8 @@ export function Sidebar() {
         </Button>
       </nav>
 
-      <div className="p-4 border-t border-sidebar-border">
+      <div className="p-4 border-t border-sidebar-border space-y-3">
+        <ThemeToggle collapsed={isCollapsed} />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -176,7 +178,13 @@ export function Sidebar() {
           >
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer">
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onSelect={(event) => {
+                event.preventDefault();
+                navigate("/profile");
+              }}
+            >
               <User className="w-4 h-4 mr-2" />
               <span>Profile</span>
             </DropdownMenuItem>

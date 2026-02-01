@@ -35,11 +35,20 @@ type CashflowFormState = {
   description: string
 }
 
+const formatDateForInput = (value: string) => {
+  const parsed = new Date(value)
+  if (Number.isNaN(parsed.getTime())) {
+    return value
+  }
+
+  return parsed.toISOString().split('T')[0]
+}
+
 const buildFormState = (cashflow: Cashflow): CashflowFormState => ({
   name: cashflow.name,
   category: cashflow.category as 'income' | 'expense',
   amount: cashflow.amount.toString(),
-  date: cashflow.date,
+  date: formatDateForInput(cashflow.date),
   description: cashflow.description ?? '',
 })
 
